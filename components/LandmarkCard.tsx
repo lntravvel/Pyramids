@@ -3,6 +3,7 @@ import { Landmark } from '../types';
 import { MapPin, ArrowUpRight, Globe } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ImageWithFallback } from './ImageWithFallback';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   landmark: Landmark;
@@ -11,6 +12,7 @@ interface Props {
 
 const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
   const ArrowIcon = ArrowUpRight;
 
   const handleEarthClick = (e: React.MouseEvent) => {
@@ -24,10 +26,17 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
   const categoryKey = `cat_${landmark.category.replace(/\s+/g, '')}`;
 
   return (
-    <a
-      href={`#/landmark/${landmark.id}`}
+    <div
+      onClick={() => navigate(`/landmark/${landmark.id}`, { state: { landmark, countryName } })}
       className="block group relative h-[180px] sm:h-[220px] md:h-[300px] lg:h-[400px] rounded-xl lg:rounded-[2rem] overflow-hidden border border-white/10 transition-all duration-500 lg:hover:shadow-[0_0_50px_rgba(234,179,8,0.25)] lg:hover:-translate-y-2 z-10 cursor-pointer"
       style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          navigate(`/landmark/${landmark.id}`, { state: { landmark, countryName } });
+        }
+      }}
     >
       {/* Background Image */}
       <img
@@ -37,10 +46,10 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
       />
 
       {/* Dark Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
 
       {/* Holographic Sheen (desktop only via CSS media query) */}
-      <div className="holographic-sheen"></div>
+      <div className="holographic-sheen pointer-events-none"></div>
 
       {/* Top Badges */}
       <div className="absolute top-2 right-2 md:top-4 md:right-4 z-30 flex flex-col gap-1 md:gap-1.5 items-end">
@@ -58,7 +67,7 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
       </div>
 
       {/* Content */}
-      <div className="absolute inset-x-0 bottom-0 p-2 sm:p-3 md:p-6 lg:p-8 z-30">
+      <div className="absolute inset-x-0 bottom-0 p-2 sm:p-3 md:p-6 lg:p-8 z-30 pointer-events-none">
         {/* Location Tag */}
         <div className="flex items-center gap-1 mb-0.5 md:mb-2 text-gold-400 text-[8px] md:text-xs font-bold tracking-wider md:tracking-[0.15em] uppercase">
           <MapPin size={8} className="md:w-3.5 md:h-3.5" />
@@ -80,7 +89,7 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
           {t('readMore')} <ArrowIcon size={10} className="md:w-4 md:h-4" />
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 

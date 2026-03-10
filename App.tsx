@@ -8,12 +8,22 @@ import LandmarkPage from './pages/LandmarkPage';
 import TravelAssistant from './components/TravelAssistant';
 import { LanguageProvider } from './contexts/LanguageContext';
 
-// Scroll to top helper
+// Scroll to top helper with paint deferral to fix mobile touch-target desync
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    // Defer scroll to next frame to ensure DOM is painted.
+    // This prevents Samsung Internet/Safari touch target desync bugs.
+    const timeoutId = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant'
+      });
+    }, 50);
+
+    return () => clearTimeout(timeoutId);
   }, [pathname]);
 
   return null;
