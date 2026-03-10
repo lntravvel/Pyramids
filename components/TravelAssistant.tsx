@@ -25,8 +25,8 @@ const TravelAssistant: React.FC = () => {
       return decodeURIComponent(path.split('/country/')[1]);
     }
     if (path.includes('/landmark/')) {
-        // Just generic travel if landmark, or pass specific landmark ID if needed
-        return "Global Travel"; 
+      // Just generic travel if landmark, or pass specific landmark ID if needed
+      return "Global Travel";
     }
     return "Global Travel";
   };
@@ -43,7 +43,7 @@ const TravelAssistant: React.FC = () => {
 
   // Reset messages when context changes significantly, or keep history? 
   // Let's keep history but add a system note if needed.
-  
+
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
@@ -60,13 +60,13 @@ const TravelAssistant: React.FC = () => {
   };
 
   return (
-    <div className={`fixed bottom-6 z-50 transition-all duration-300 ${language === 'ar' ? 'left-6' : 'right-6'}`}>
-      
+    <div className={`fixed bottom-6 z-50 transition-all duration-300 pointer-events-none ${language === 'ar' ? 'left-6' : 'right-6'}`}>
+
       {/* Chat Window */}
-      <div 
+      <div
         className={`
           mb-4 w-80 md:w-96 bg-black/80 backdrop-blur-xl border border-gold-500/30 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 origin-bottom-${language === 'ar' ? 'left' : 'right'}
-          ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-0 opacity-0 translate-y-10 pointer-events-none'}
+          ${isOpen ? 'scale-100 opacity-100 translate-y-0 pointer-events-auto' : 'scale-0 opacity-0 translate-y-10 pointer-events-none'}
         `}
       >
         {/* Header */}
@@ -90,11 +90,11 @@ const TravelAssistant: React.FC = () => {
           )}
           {messages.map((msg, idx) => (
             <div key={idx} className={`flex ${msg.isUser ? 'justify-start' : 'justify-end'}`}>
-              <div 
+              <div
                 className={`
                   max-w-[85%] rounded-xl px-4 py-2 text-sm leading-relaxed
-                  ${msg.isUser 
-                    ? 'bg-white/10 text-white rounded-br-none' 
+                  ${msg.isUser
+                    ? 'bg-white/10 text-white rounded-br-none'
                     : 'bg-gold-500 text-black rounded-bl-none font-medium'}
                 `}
               >
@@ -122,8 +122,8 @@ const TravelAssistant: React.FC = () => {
               placeholder={t('oraclePlaceholder')}
               className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-gold-500/50"
             />
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={isLoading || !inputValue.trim()}
               className="bg-gold-500 text-black p-2 rounded-full hover:bg-gold-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
@@ -136,7 +136,7 @@ const TravelAssistant: React.FC = () => {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-gold-500 hover:bg-gold-400 text-black rounded-full shadow-lg shadow-gold-500/20 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 group"
+        className="w-14 h-14 bg-gold-500 hover:bg-gold-400 text-black rounded-full shadow-lg shadow-gold-500/20 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 group pointer-events-auto"
       >
         {isOpen ? (
           <X size={24} />
