@@ -90,12 +90,12 @@ const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {filteredCountries.map((country) => (
-            <Link
-              to={`/country/${country.id}`}
+            <div
+              onClick={() => navigate(`/country/${country.id}`)}
               key={country.id}
               className="group relative h-[320px] md:h-[400px] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer border border-white/10 hover:border-gold-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-gold-500/10 block bg-gray-900"
             >
-              <div className="absolute inset-0 bg-gray-900">
+              <div className="absolute inset-0 bg-gray-900 pointer-events-none">
                 <ImageWithFallback
                   src={country.heroImage}
                   alt={country.name}
@@ -105,7 +105,7 @@ const Home: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 md:via-black/20 to-transparent pointer-events-none"></div>
 
               {/* Region Label - Fully Translated */}
-              <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-black/50 backdrop-blur-md border border-white/10 text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+              <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-black/50 backdrop-blur-md border border-white/10 text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center gap-1 pointer-events-none">
                 <MapPin size={12} className="text-gold-500" />
                 {t(`region_${country.region.replace(' ', '')}`) || country.region}
               </div>
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
                   {dir === 'rtl' ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Landmark } from '../types';
 import { MapPin, ArrowUpRight, Globe } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ImageWithFallback } from './ImageWithFallback';
 
@@ -12,6 +12,7 @@ interface Props {
 
 const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
   const ArrowIcon = ArrowUpRight;
 
   const handleEarthClick = (e: React.MouseEvent) => {
@@ -25,13 +26,12 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
   const categoryKey = `cat_${landmark.category.replace(/\s+/g, '')}`;
 
   return (
-    <Link
-      to={`/landmark/${landmark.id}`}
-      state={{ landmark, countryName }}
+    <div
+      onClick={() => navigate(`/landmark/${landmark.id}`, { state: { landmark, countryName } })}
       className="block group relative h-[350px] md:h-[450px] rounded-3xl md:rounded-[2rem] overflow-hidden cursor-pointer border border-white/10 transition-all duration-500 hover:shadow-[0_0_50px_rgba(234,179,8,0.25)] md:hover:-translate-y-2 transform perspective-1000 bg-gray-900 z-10"
     >
       {/* Background Image with Fallback */}
-      <div className="absolute inset-0 bg-gray-900 z-0">
+      <div className="absolute inset-0 bg-gray-900 z-0 pointer-events-none">
         <ImageWithFallback
           src={landmark.imageUrl}
           alt={landmark.name}
@@ -50,7 +50,7 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
 
       {/* Top Badge */}
       <div className="absolute top-4 right-4 z-30 rtl:right-4 rtl:left-auto ltr:left-auto ltr:right-4 flex flex-col gap-2 items-end">
-        <span className="bg-gold-500/90 backdrop-blur-md text-black text-[10px] md:text-xs font-black px-3 py-1.5 md:px-4 md:py-2 rounded-full uppercase tracking-widest shadow-lg flex items-center border border-gold-400">
+        <span className="bg-gold-500/90 backdrop-blur-md text-black text-[10px] md:text-xs font-black px-3 py-1.5 md:px-4 md:py-2 rounded-full uppercase tracking-widest shadow-lg flex items-center border border-gold-400 pointer-events-none">
           {t(categoryKey) || landmark.category}
         </span>
         <button
@@ -91,7 +91,7 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
