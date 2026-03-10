@@ -1,6 +1,7 @@
 import React from 'react';
-import { useLocation, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { Landmark } from '../types';
+import { STATIC_COUNTRIES } from '../constants';
 import { MapPin, BookOpen, Lightbulb, Camera, Globe, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import AudioPlayer from '../components/AudioPlayer';
@@ -8,16 +9,36 @@ import AmbientSound from '../components/AmbientSound';
 import { ImageWithFallback } from '../components/ImageWithFallback';
 
 const LandmarkPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
-  const state = location.state as { landmark: Landmark; countryName: string };
   const { t, dir } = useLanguage();
 
-  if (!state?.landmark) {
+  // Try to get data from location.state first (for backward compat), fallback to STATIC_COUNTRIES lookup
+  const stateData = location.state as { landmark: Landmark; countryName: string } | null;
+
+  let landmark: Landmark | undefined;
+  let countryName: string = '';
+
+  if (stateData?.landmark) {
+    landmark = stateData.landmark;
+    countryName = stateData.countryName;
+  } else if (id) {
+    // Look up landmark from all countries
+    for (const country of STATIC_COUNTRIES) {
+      const found = country.landmarks.find(l => l.id === id);
+      if (found) {
+        landmark = found;
+        countryName = country.name;
+        break;
+      }
+    }
+  }
+
+  if (!landmark) {
     return <Navigate to="/" />;
   }
 
-  const { landmark, countryName } = state;
   const BackIcon = dir === 'rtl' ? ArrowRight : ArrowLeft;
 
   const handleEarthClick = () => {

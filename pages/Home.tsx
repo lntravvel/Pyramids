@@ -90,10 +90,11 @@ const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredCountries.map((country) => (
-            <Link
-              to={`/country/${country.id}`}
+            <a
+              href={`#/country/${country.id}`}
               key={country.id}
               className="group relative h-[220px] md:h-[350px] lg:h-[400px] rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden border border-white/10 lg:hover:border-gold-500/50 transition-all duration-500 lg:hover:shadow-2xl lg:hover:shadow-gold-500/10 block"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <img
                 src={country.heroImage}
@@ -123,7 +124,7 @@ const Home: React.FC = () => {
                   {dir === 'rtl' ? <ArrowLeft size={14} /> : <ArrowRight size={14} />}
                 </div>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       </div>

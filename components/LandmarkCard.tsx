@@ -1,7 +1,6 @@
 import React from 'react';
 import { Landmark } from '../types';
 import { MapPin, ArrowUpRight, Globe } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ImageWithFallback } from './ImageWithFallback';
 
@@ -25,10 +24,10 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
   const categoryKey = `cat_${landmark.category.replace(/\s+/g, '')}`;
 
   return (
-    <Link
-      to={`/landmark/${landmark.id}`}
-      state={{ landmark, countryName }}
+    <a
+      href={`#/landmark/${landmark.id}`}
       className="block group relative h-[250px] md:h-[400px] lg:h-[450px] rounded-xl md:rounded-2xl lg:rounded-[2rem] overflow-hidden border border-white/10 transition-all duration-500 lg:hover:shadow-[0_0_50px_rgba(234,179,8,0.25)] lg:hover:-translate-y-2"
+      style={{ WebkitTapHighlightColor: 'transparent' }}
     >
       {/* Background Image */}
       <img
@@ -81,7 +80,7 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
           {t('readMore')} <ArrowIcon size={12} className="md:w-4 md:h-4" />
         </div>
       </div>
-    </Link>
+    </a>
   );
 };
 
