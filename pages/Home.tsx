@@ -88,43 +88,43 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {filteredCountries.map((country) => (
             <Link
               to={`/country/${country.id}`}
               key={country.id}
-              className="group relative h-[400px] rounded-3xl overflow-hidden cursor-pointer border border-white/10 hover:border-gold-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-gold-500/10"
+              className="group relative h-[320px] md:h-[400px] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer border border-white/10 hover:border-gold-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-gold-500/10 block bg-gray-900"
             >
               <div className="absolute inset-0 bg-gray-900">
                 <ImageWithFallback
                   src={country.heroImage}
                   alt={country.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 lg:group-hover:opacity-100"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 md:via-black/20 to-transparent"></div>
 
               {/* Region Label - Fully Translated */}
-              <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md border border-white/10 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+              <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-black/50 backdrop-blur-md border border-white/10 text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center gap-1">
                 <MapPin size={12} className="text-gold-500" />
                 {t(`region_${country.region.replace(' ', '')}`) || country.region}
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 transform translate-y-0 lg:translate-y-4 lg:group-hover:translate-y-0 transition-transform duration-500">
                 {/* Title - Language Aware */}
-                <h3 className="text-3xl font-black text-white mb-2 group-hover:text-gold-400 transition-colors">
+                <h3 className="text-2xl md:text-3xl font-black text-white mb-2 lg:group-hover:text-gold-400 transition-colors">
                   {language === 'ar' ? country.name : country.englishName}
                 </h3>
 
                 {/* Description - Use generic translated description if not Arabic to avoid hardcoded Arabic text */}
-                <p className="text-gray-300 text-sm line-clamp-2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                <p className="text-gray-300 text-xs md:text-sm line-clamp-2 mb-3 md:mb-4 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 delay-100">
                   {language === 'ar'
                     ? country.description
                     : t('homeCardGenericDesc').replace('{country}', country.englishName)
                   }
                 </p>
 
-                <div className="flex items-center gap-2 text-gold-500 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                <div className="flex items-center gap-1 md:gap-2 text-gold-500 text-xs md:text-sm font-bold lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 delay-200">
                   {t('readMore')}
                   {dir === 'rtl' ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
                 </div>
