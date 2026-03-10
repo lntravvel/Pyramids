@@ -42,9 +42,12 @@ const Home: React.FC = () => {
             <Sparkles size={16} />
             <span>{t('discoverWorld')}</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-2xl animate-fade-in-up delay-100">
-            {t('heroSubtitle')}
+          <h1 className="text-6xl md:text-8xl font-black text-white mb-4 tracking-tight drop-shadow-2xl animate-fade-in-up delay-100">
+            PYRAMID
           </h1>
+          <p className="text-xl md:text-2xl text-gray-200 mb-8 font-light tracking-wide animate-fade-in-up delay-200">
+            {t('exploreAllDestinations')}
+          </p>
 
           <div className="mt-8 flex flex-col md:flex-row gap-4 justify-center animate-fade-in-up delay-200">
             <button
