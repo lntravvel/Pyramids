@@ -102,7 +102,7 @@ const Home: React.FC = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 lg:group-hover:opacity-100"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 md:via-black/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 md:via-black/20 to-transparent pointer-events-none"></div>
 
               {/* Region Label - Fully Translated */}
               <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-black/50 backdrop-blur-md border border-white/10 text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center gap-1">
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
                 {t(`region_${country.region.replace(' ', '')}`) || country.region}
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 transform translate-y-0 lg:translate-y-4 lg:group-hover:translate-y-0 transition-transform duration-500">
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8 transform translate-y-0 lg:translate-y-4 lg:group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
                 {/* Title - Language Aware */}
                 <h3 className="text-2xl md:text-3xl font-black text-white mb-2 lg:group-hover:text-gold-400 transition-colors">
                   {language === 'ar' ? country.name : country.englishName}
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
                   }
                 </p>
 
-                <div className="flex items-center gap-1 md:gap-2 text-gold-500 text-xs md:text-sm font-bold lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                <div className="flex items-center gap-1 md:gap-2 text-gold-500 text-xs md:text-sm font-bold lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 delay-200 pointer-events-auto">
                   {t('readMore')}
                   {dir === 'rtl' ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
                 </div>

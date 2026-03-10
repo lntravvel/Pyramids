@@ -40,10 +40,10 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
       </div>
 
       {/* Dark Gradient Overlay for Text Readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 md:via-black/30 to-transparent z-10 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 md:via-black/30 to-transparent z-10 transition-opacity duration-300 pointer-events-none"></div>
 
       {/* NEW HOLOGRAPHIC SHEEN EFFECT - Using the global CSS class */}
-      <div className="holographic-sheen"></div>
+      <div className="holographic-sheen pointer-events-none"></div>
 
       {/* Static Glow Border on Hover */}
       <div className="absolute inset-0 z-20 border-2 border-gold-500/0 group-hover:border-gold-500/50 rounded-[2rem] transition-colors duration-500 pointer-events-none"></div>
@@ -64,7 +64,7 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
       </div>
 
       {/* Content */}
-      <div className="absolute inset-x-0 bottom-0 p-5 md:p-8 flex flex-col justify-end z-30">
+      <div className="absolute inset-x-0 bottom-0 p-5 md:p-8 flex flex-col justify-end z-30 pointer-events-none">
         <div className="transform translate-y-0 lg:translate-y-6 lg:group-hover:translate-y-0 transition-transform duration-500 ease-out">
 
           {/* Location Tag */}
@@ -86,7 +86,7 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
           </div>
 
           {/* Action Button */}
-          <div className="inline-flex items-center w-fit text-xs md:text-sm font-bold text-white bg-white/10 px-4 py-2.5 md:px-5 md:py-2.5 rounded-full border border-white/10 md:group-hover:bg-gold-500 md:group-hover:text-black md:group-hover:border-gold-500 transition-all duration-300 gap-2 mt-0 md:mt-2 lg:group-hover:mt-0">
+          <div className="inline-flex pointer-events-auto items-center w-fit text-xs md:text-sm font-bold text-white bg-white/10 px-4 py-2.5 md:px-5 md:py-2.5 rounded-full border border-white/10 md:group-hover:bg-gold-500 md:group-hover:text-black md:group-hover:border-gold-500 transition-all duration-300 gap-2 mt-0 md:mt-2 lg:group-hover:mt-0">
             {t('readMore')} <ArrowIcon size={14} className="md:w-4 md:h-4" />
           </div>
         </div>
