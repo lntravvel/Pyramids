@@ -3,18 +3,21 @@ import { GeminiResponse } from '../types';
 
 const apiKey = process.env.API_KEY || '';
 
-// Initialize Gemini client
-const ai = new GoogleGenAI({ apiKey });
+// Do not initialize Gemini client at the module root to avoid crash if API key is empty!
+let ai: GoogleGenAI | null = null;
 
 export const getCountryDetails = async (countryName: string, language: string = 'ar'): Promise<GeminiResponse | null> => {
   if (!apiKey) {
     console.warn("No API Key provided for Gemini.");
     return null;
   }
+  if (!ai) {
+    ai = new GoogleGenAI({ apiKey });
+  }
 
   try {
     const model = 'gemini-3-flash-preview';
-    
+
     // Updated prompt for more detailed and suspenseful storytelling + seasonal activities
     const prompt = `
       You are an expert, world-class travel guide and storyteller for a futuristic travel website called "PYRAMID".
@@ -55,7 +58,7 @@ export const getCountryDetails = async (countryName: string, language: string = 
           - "imageUrl": use a keyword related to the hotel (e.g. "Luxury Hotel Lobby").
     `;
 
-    const response = await ai.models.generateContent({
+    const response = await ai!.models.generateContent({
       model,
       contents: prompt,
       config: {
@@ -88,30 +91,30 @@ export const getCountryDetails = async (countryName: string, language: string = 
             restaurants: {
               type: Type.ARRAY,
               items: {
-                 type: Type.OBJECT,
-                 properties: {
-                   name: { type: Type.STRING },
-                   description: { type: Type.STRING },
-                   cuisine: { type: Type.STRING },
-                   rating: { type: Type.NUMBER },
-                   imageUrl: { type: Type.STRING }
-                 },
-                 required: ['name', 'description', 'cuisine', 'rating', 'imageUrl']
+                type: Type.OBJECT,
+                properties: {
+                  name: { type: Type.STRING },
+                  description: { type: Type.STRING },
+                  cuisine: { type: Type.STRING },
+                  rating: { type: Type.NUMBER },
+                  imageUrl: { type: Type.STRING }
+                },
+                required: ['name', 'description', 'cuisine', 'rating', 'imageUrl']
               }
             },
             hotels: {
               type: Type.ARRAY,
               items: {
-                 type: Type.OBJECT,
-                 properties: {
-                   name: { type: Type.STRING },
-                   stars: { type: Type.NUMBER },
-                   price: { type: Type.STRING },
-                   rating: { type: Type.NUMBER },
-                   description: { type: Type.STRING },
-                   imageUrl: { type: Type.STRING }
-                 },
-                 required: ['name', 'stars', 'price', 'rating', 'description', 'imageUrl']
+                type: Type.OBJECT,
+                properties: {
+                  name: { type: Type.STRING },
+                  stars: { type: Type.NUMBER },
+                  price: { type: Type.STRING },
+                  rating: { type: Type.NUMBER },
+                  description: { type: Type.STRING },
+                  imageUrl: { type: Type.STRING }
+                },
+                required: ['name', 'stars', 'price', 'rating', 'description', 'imageUrl']
               }
             }
           },
@@ -127,16 +130,16 @@ export const getCountryDetails = async (countryName: string, language: string = 
         imageUrl: `https://picsum.photos/seed/${l.id}/800/600`
       }));
       if (data.restaurants) {
-          data.restaurants = data.restaurants.map((r, index) => ({
-              ...r,
-              imageUrl: `https://picsum.photos/seed/rest-${index}-${countryName}/800/600`
-          }));
+        data.restaurants = data.restaurants.map((r, index) => ({
+          ...r,
+          imageUrl: `https://picsum.photos/seed/rest-${index}-${countryName}/800/600`
+        }));
       }
       if (data.hotels) {
-          data.hotels = data.hotels.map((h, index) => ({
-              ...h,
-              imageUrl: `https://picsum.photos/seed/hotel-${index}-${countryName}/800/600`
-          }));
+        data.hotels = data.hotels.map((h, index) => ({
+          ...h,
+          imageUrl: `https://picsum.photos/seed/hotel-${index}-${countryName}/800/600`
+        }));
       }
       return data;
     }
@@ -150,6 +153,9 @@ export const getCountryDetails = async (countryName: string, language: string = 
 
 export const getOracleResponse = async (context: string, question: string, language: string): Promise<string> => {
   if (!apiKey) return "Error: API Key missing.";
+  if (!ai) {
+    ai = new GoogleGenAI({ apiKey });
+  }
 
   try {
     const prompt = `
@@ -165,7 +171,7 @@ export const getOracleResponse = async (context: string, question: string, langu
       - If asked about prices, give estimates in USD.
     `;
 
-    const response = await ai.models.generateContent({
+    const response = await ai!.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: prompt,
     });
