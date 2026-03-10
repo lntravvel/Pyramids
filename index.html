@@ -103,8 +103,11 @@
         transform: translateX(-150%) skewX(-25deg);
       }
 
-      .group:hover .holographic-sheen {
-        animation: sheen-sweep 0.7s ease-in-out forwards;
+      /* Only trigger hover animations on devices that truly support hover (mouse/trackpad) */
+      @media (hover: hover) and (pointer: fine) {
+        .group:hover .holographic-sheen {
+          animation: sheen-sweep 0.7s ease-in-out forwards;
+        }
       }
 
       /* EQUALIZER ANIMATION */

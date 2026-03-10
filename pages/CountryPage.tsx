@@ -228,7 +228,7 @@ const CountryPage: React.FC = () => {
                 <p className="text-gray-400">{t('landmarkDesc')} {data.name}</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
                 {data.landmarks.map((landmark) => (
                   <LandmarkCard key={landmark.id} landmark={landmark} countryName={data.name} />
                 ))}
@@ -245,10 +245,10 @@ const CountryPage: React.FC = () => {
                   <p className="text-gray-400">{t('restaurantsDesc')}</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
                   {data.restaurants.map((rest, idx) => (
-                    <div key={idx} className="group bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-gold-500/50 transition-all hover:shadow-xl hover:shadow-gold-500/5">
-                      <div className="h-48 relative overflow-hidden bg-gray-800">
+                    <div key={idx} className="group bg-white/5 rounded-xl md:rounded-2xl overflow-hidden border border-white/10 hover:border-gold-500/50 transition-all hover:shadow-xl hover:shadow-gold-500/5">
+                      <div className="h-32 md:h-48 relative overflow-hidden bg-gray-800">
                         <ImageWithFallback
                           src={rest.imageUrl}
                           alt={rest.name}

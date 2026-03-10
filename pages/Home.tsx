@@ -88,13 +88,13 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6 lg:gap-8">
           {filteredCountries.map((country) => (
             <a
               href={`#/country/${country.id}`}
               key={country.id}
-              className="group relative h-[220px] md:h-[350px] lg:h-[400px] rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden border border-white/10 lg:hover:border-gold-500/50 transition-all duration-500 lg:hover:shadow-2xl lg:hover:shadow-gold-500/10 block"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
+              className="group relative h-[180px] sm:h-[220px] md:h-[300px] lg:h-[350px] rounded-xl lg:rounded-2xl overflow-hidden border border-white/10 lg:hover:border-gold-500/50 transition-all duration-500 lg:hover:shadow-2xl lg:hover:shadow-gold-500/10 block z-10 cursor-pointer"
+              style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
             >
               <img
                 src={country.heroImage}
@@ -104,24 +104,24 @@ const Home: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
               {/* Region Label */}
-              <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-black/60 backdrop-blur-sm text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-[9px] md:text-xs font-bold uppercase tracking-wider flex items-center gap-1">
-                <MapPin size={10} className="text-gold-500" />
+              <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-black/60 backdrop-blur-sm text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-[8px] md:text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                <MapPin size={8} className="text-gold-500 md:w-3 md:h-3" />
                 {t(`region_${country.region.replace(' ', '')}`) || country.region}
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-6 lg:p-8">
-                <h3 className="text-lg md:text-2xl lg:text-3xl font-black text-white mb-1 md:mb-2">
+              <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 md:p-6 lg:p-8">
+                <h3 className="text-sm sm:text-base md:text-2xl lg:text-3xl font-black text-white mb-0.5 md:mb-2 leading-tight">
                   {language === 'ar' ? country.name : country.englishName}
                 </h3>
-                <p className="text-gray-300 text-[11px] md:text-sm line-clamp-1 md:line-clamp-2 mb-2 md:mb-3">
+                <p className="text-gray-300 text-[8px] sm:text-[10px] md:text-sm line-clamp-1 md:line-clamp-2 mb-1 md:mb-3">
                   {language === 'ar'
                     ? country.description
                     : t('homeCardGenericDesc').replace('{country}', country.englishName)
                   }
                 </p>
-                <div className="flex items-center gap-1 text-gold-500 text-[11px] md:text-sm font-bold">
+                <div className="flex items-center gap-1 text-gold-500 text-[9px] sm:text-[11px] md:text-sm font-bold">
                   {t('readMore')}
-                  {dir === 'rtl' ? <ArrowLeft size={14} /> : <ArrowRight size={14} />}
+                  {dir === 'rtl' ? <ArrowLeft size={10} className="md:w-4 md:h-4" /> : <ArrowRight size={10} className="md:w-4 md:h-4" />}
                 </div>
               </div>
             </a>
