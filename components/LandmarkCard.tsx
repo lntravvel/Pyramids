@@ -1,7 +1,7 @@
 import React from 'react';
 import { Landmark } from '../types';
 import { MapPin, ArrowUpRight, Globe } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ImageWithFallback } from './ImageWithFallback';
 
@@ -12,7 +12,6 @@ interface Props {
 
 const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
   const { t, language } = useLanguage();
-  const navigate = useNavigate();
   const ArrowIcon = ArrowUpRight;
 
   const handleEarthClick = (e: React.MouseEvent) => {
@@ -26,9 +25,10 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
   const categoryKey = `cat_${landmark.category.replace(/\s+/g, '')}`;
 
   return (
-    <div
-      onClick={() => navigate(`/landmark/${landmark.id}`, { state: { landmark, countryName } })}
-      className="block group relative h-[350px] md:h-[450px] rounded-3xl md:rounded-[2rem] overflow-hidden cursor-pointer border border-white/10 transition-all duration-500 hover:shadow-[0_0_50px_rgba(234,179,8,0.25)] md:hover:-translate-y-2 transform perspective-1000 bg-gray-900 z-10"
+    <Link
+      to={`/landmark/${landmark.id}`}
+      state={{ landmark, countryName }}
+      className="block group relative h-[350px] md:h-[450px] rounded-3xl md:rounded-[2rem] overflow-hidden cursor-pointer border border-white/10 transition-all duration-500 lg:hover:shadow-[0_0_50px_rgba(234,179,8,0.25)] lg:hover:-translate-y-2 transform perspective-1000 bg-gray-900 z-10"
     >
       {/* Background Image with Fallback */}
       <div className="absolute inset-0 bg-gray-900 z-0 pointer-events-none">
@@ -46,7 +46,7 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
       <div className="holographic-sheen pointer-events-none"></div>
 
       {/* Static Glow Border on Hover */}
-      <div className="absolute inset-0 z-20 border-2 border-gold-500/0 group-hover:border-gold-500/50 rounded-[2rem] transition-colors duration-500 pointer-events-none"></div>
+      <div className="absolute inset-0 z-20 border-2 border-gold-500/0 lg:group-hover:border-gold-500/50 rounded-3xl md:rounded-[2rem] transition-colors duration-500 pointer-events-none"></div>
 
       {/* Top Badge */}
       <div className="absolute top-4 right-4 z-30 rtl:right-4 rtl:left-auto ltr:left-auto ltr:right-4 flex flex-col gap-2 items-end">
@@ -86,12 +86,12 @@ const LandmarkCard: React.FC<Props> = ({ landmark, countryName }) => {
           </div>
 
           {/* Action Button */}
-          <div className="inline-flex pointer-events-auto items-center w-fit text-xs md:text-sm font-bold text-white bg-white/10 px-4 py-2.5 md:px-5 md:py-2.5 rounded-full border border-white/10 md:group-hover:bg-gold-500 md:group-hover:text-black md:group-hover:border-gold-500 transition-all duration-300 gap-2 mt-0 md:mt-2 lg:group-hover:mt-0">
+          <div className="inline-flex pointer-events-auto items-center w-fit text-xs md:text-sm font-bold text-white bg-white/10 px-4 py-2.5 md:px-5 md:py-2.5 rounded-full border border-white/10 lg:group-hover:bg-gold-500 lg:group-hover:text-black lg:group-hover:border-gold-500 transition-all duration-300 gap-2 mt-0 md:mt-2 lg:group-hover:mt-0">
             {t('readMore')} <ArrowIcon size={14} className="md:w-4 md:h-4" />
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

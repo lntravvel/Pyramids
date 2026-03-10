@@ -90,16 +90,16 @@ const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {filteredCountries.map((country) => (
-            <div
-              onClick={() => navigate(`/country/${country.id}`)}
+            <Link
+              to={`/country/${country.id}`}
               key={country.id}
-              className="group relative h-[320px] md:h-[400px] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer border border-white/10 hover:border-gold-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-gold-500/10 block bg-gray-900"
+              className="group relative h-[320px] md:h-[400px] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer border border-white/10 lg:hover:border-gold-500/50 transition-all duration-500 lg:hover:shadow-2xl lg:hover:shadow-gold-500/10 block bg-gray-900"
             >
               <div className="absolute inset-0 bg-gray-900 pointer-events-none">
                 <ImageWithFallback
                   src={country.heroImage}
                   alt={country.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 lg:group-hover:opacity-100"
+                  className="w-full h-full object-cover transition-transform duration-700 lg:group-hover:scale-110 opacity-80 lg:group-hover:opacity-100"
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 md:via-black/20 to-transparent pointer-events-none"></div>
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
                   {dir === 'rtl' ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
